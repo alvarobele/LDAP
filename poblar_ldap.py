@@ -56,4 +56,4 @@ except ldap3.core.exceptions.LDAPInvalidCredentialsResult:
 if cont == 1:
 	print('Añadido 1 registro')
 else:
-	print('Añadidos {} registros')
+	print('Añadidos {} registros'.format(cont))
