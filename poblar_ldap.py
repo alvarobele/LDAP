@@ -19,3 +19,11 @@ fichero.pop(0)
 for i in fichero:
 	usuarios.append(i.strip('\n').split(':'))
 
+for i in usuarios:
+	c.add('uid={},ou=People,dc=gonzalonazareno,dc=org'.format(i[3]), \
+		  attributes = {'objectClass': ['top', 'posixAccount', 'inetOrgPerson', 'ldapPublicKey'],\
+		  'givenName': i[0], 'sn': i[1], 'cn': '{} {}'.format(i[0], i[1]), \
+	 	  'uid': i[3], 'mail': i[2], 'uidNumber': str(2000), 'gidNumber': str(2000), \
+	  	  'homeDirectory': '/home/{}'.format(i[3]), 'loginShell': '/bin/bash', \
+	  	  'sshPublicKey': i[4]})
+	c.unbind()
