@@ -53,7 +53,7 @@ try:
 except ldap3.core.exceptions.LDAPInvalidCredentialsResult:
 	print('No se pudo llevar a cabo la conexión: Credenciales incorrectas.')
 
-if cont = 1:
+if cont == 1:
 	print('Añadido 1 registro')
 else:
 	print('Añadidos {} registros')
