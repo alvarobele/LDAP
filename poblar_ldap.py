@@ -38,7 +38,7 @@ try:
 
 		c.add('uid={},ou=People,dc=gonzalonazareno,dc=org'.format(i[3]), \
 		  attributes = {'objectClass': ['top', 'posixAccount', 'inetOrgPerson', 'ldapPublicKey'],\
-		  'givenName': nombre, 'sn': apellidos, 'cn': '{} {}'.format(nombre, apellidos), \
+		  'givenName': nombre, 'sn': apellidos, 'cn': base64.b64encode('{} {}'.format(i[0], i[1])), \
 	 	  'uid': i[3], 'mail': i[2], 'uidNumber': str(uid), 'gidNumber': str(gid), \
 	  	  'homeDirectory': '/home/{}'.format(i[3]), 'loginShell': '/bin/bash', \
 	  	  'sshPublicKey': i[4]})
@@ -46,6 +46,5 @@ try:
 		c.unbind()
 
 		uid += 1
-		gid += 1
 except ldap3.core.exceptions.LDAPInvalidCredentialsResult:
 	print('No se pudo llevar a cabo la conexión: Credenciales incorrectas.')
