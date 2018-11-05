@@ -4,6 +4,7 @@ from ldap3 import Server, Connection, ALL
 dom = 'dc=gonzalonazareno,dc=org'
 uid = 2000
 gid = 2000
+cont = 0
 
 server = Server('172.22.200.121')
 
@@ -36,6 +37,8 @@ try:
 		else:
 			apellidos = str(base64.b64encode(apellidos.encode())).lstrip("b'").rstrip("'")
 
+		print('Añadiendo al usuario {}...'.format(i[3]))
+
 		c.add('uid={},ou=People,dc=gonzalonazareno,dc=org'.format(i[3]), \
 		  attributes = {'objectClass': ['top', 'posixAccount', 'inetOrgPerson', 'ldapPublicKey'],\
 		  'givenName': nombre, 'sn': apellidos, 'cn': base64.b64encode(('{} {}'.format(i[0], i[1])).encode()), \
@@ -46,5 +49,11 @@ try:
 		c.unbind()
 
 		uid += 1
+		cont += 1
 except ldap3.core.exceptions.LDAPInvalidCredentialsResult:
 	print('No se pudo llevar a cabo la conexión: Credenciales incorrectas.')
+
+if cont = 1:
+	print('Añadido 1 registro')
+else:
+	print('Añadidos {} registros')
