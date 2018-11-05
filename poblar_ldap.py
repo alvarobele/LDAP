@@ -9,3 +9,12 @@ user = input('Usuario: ')
 pwd = getpass.getpass('Contraseña: ')
 
 c = Connection(server, 'cn={},{}'.format(user, dom))
+
+with open('../usuarios.csv', 'r') as f:
+	fichero = f.readlines()
+
+usuarios = []
+fichero.pop(0)
+
+for i in fichero:
+	usuarios.append(i.strip('\n').split(':'))
