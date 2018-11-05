@@ -30,7 +30,7 @@ try:
 			nombre = nombre
 		else:
 			nombre = str(base64.b64encode(nombre.encode())).lstrip("b'").rstrip("'")
-
+		
 		if all(ord(char) < 128 for char in apellidos):
 			apellidos = apellidos
 		else:
@@ -38,7 +38,7 @@ try:
 
 		c.add('uid={},ou=People,dc=gonzalonazareno,dc=org'.format(i[3]), \
 		  attributes = {'objectClass': ['top', 'posixAccount', 'inetOrgPerson', 'ldapPublicKey'],\
-		  'givenName': nombre, 'sn': apellidos, 'cn': base64.b64encode('{} {}'.format(i[0], i[1])), \
+		  'givenName': nombre, 'sn': apellidos, 'cn': base64.b64encode(('{} {}'.format(i[0], i[1])).encode()), \
 	 	  'uid': i[3], 'mail': i[2], 'uidNumber': str(uid), 'gidNumber': str(gid), \
 	  	  'homeDirectory': '/home/{}'.format(i[3]), 'loginShell': '/bin/bash', \
 	  	  'sshPublicKey': i[4]})
