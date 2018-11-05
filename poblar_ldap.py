@@ -8,7 +8,7 @@ server = Server('172.22.200.121')
 user = input('Usuario: ')
 pwd = getpass.getpass('Contraseña: ')
 
-c = Connection(server, 'cn={},{}'.format(user, dom))
+c = Connection(server, 'cn={},{}'.format(user, dom), pwd, auto_bind = True)
 
 with open('../usuarios.csv', 'r') as f:
 	fichero = f.readlines()
@@ -18,3 +18,4 @@ fichero.pop(0)
 
 for i in fichero:
 	usuarios.append(i.strip('\n').split(':'))
+
