@@ -55,7 +55,8 @@ try:
                             'cn': base64.b64encode(('{} {}'.format(i[0], i[1])).encode()),
                             'uid': i[3],
                             'mail': i[2],
-                            'uidNumber': str(uid),'gidNumber': str(gid),
+                            'uidNumber': str(uid),
+                            'gidNumber': str(gid),
                             'homeDirectory': '/home/{}'.format(i[3]),
                             'loginShell': '/bin/bash',
                             'sshPublicKey': str(i[4])})
