@@ -31,21 +31,21 @@ try:
     for i in usuarios:
 
         nombre = i[0]
-		apellidos = i[1]
+        apellidos = i[1]
 
-		if all(ord(char) < 128 for char in nombre):
-			nombre = nombre
-		else:
-			nombre = str(base64.b64encode(nombre.encode())).lstrip("b'").rstrip("'")
+        if all(ord(char) < 128 for char in nombre):
+            nombre = nombre
+        else:
+            nombre = str(base64.b64encode(nombre.encode())).lstrip("b'").rstrip("'")
 
-		if all(ord(char) < 128 for char in apellidos):
-			apellidos = apellidos
-		else:
-			apellidos = str(base64.b64encode(apellidos.encode())).lstrip("b'").rstrip("'")
+        if all(ord(char) < 128 for char in apellidos):
+            apellidos = apellidos
+        else:
+            apellidos = str(base64.b64encode(apellidos.encode())).lstrip("b'").rstrip("'")
 
-		print('Añadiendo al usuario {}...'.format(i[3]))
+        print('Añadiendo al usuario {}...'.format(i[3]))
 
-		c.add('uid={},ou=People,dc=gonzalonazareno,dc=org'.format(i[3]),
+        c.add('uid={},ou=People,dc=gonzalonazareno,dc=org'.format(i[3]),
               attributes = {'objectClass': ['top',
                                             'posixAccount',
                                             'inetOrgPerson',
@@ -62,7 +62,7 @@ try:
                             'sshPublicKey': str(i[4])})
 
         uid += 1
-		cont += 1
+        cont += 1
 except ldap3.core.exceptions.LDAPInvalidCredentialsResult:
 	print('No se pudo llevar a cabo la conexión: Credenciales incorrectas.')
 	sys.exit(1)
