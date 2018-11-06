@@ -1,13 +1,18 @@
 import getpass, ldap3, base64, sys
 from ldap3 import Server, Connection, ALL
 
-dom = 'dc=gonzalonazareno,dc=org'
-uid = 2000
-gid = 2000
+with open('conf.csv', 'r') as conf:
+    cfg = conf.readlines()
+
+cfg.pop(0)
+
+dom = cfg.split(':')[0]
+uid = cfg.split(':')[1]
+gid = cfg.split(':')[2]
 cont = 0
 
 # Hacerlo en un fichero aparte
-server = Server('172.22.200.121')
+server = Server(cfg.split(':')[3])
 
 user = input('Usuario: ')
 pwd = getpass.getpass('Contraseña: ')
