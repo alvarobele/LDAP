@@ -1,4 +1,4 @@
-import getpass, ldap3, base64
+import getpass, ldap3, base64, sys
 from ldap3 import Server, Connection, ALL
 
 dom = 'dc=gonzalonazareno,dc=org'
@@ -6,6 +6,7 @@ uid = 2000
 gid = 2000
 cont = 0
 
+# Hacerlo en un fichero aparte
 server = Server('172.22.200.121')
 
 user = input('Usuario: ')
@@ -21,8 +22,8 @@ for i in fichero:
 	usuarios.append(i.strip('\n').split(':'))
 
 try:
+    c = Connection(server, 'cn={},{}'.format(user, dom), pwd, auto_bind = True, raise_exceptions = True)
 	for i in usuarios:
-		c = Connection(server, 'cn={},{}'.format(user, dom), pwd, auto_bind = True, raise_exceptions = True)
 
 		nombre = i[0]
 		apellidos = i[1]
@@ -44,14 +45,15 @@ try:
 		  'givenName': nombre, 'sn': apellidos, 'cn': base64.b64encode(('{} {}'.format(i[0], i[1])).encode()), \
 	 	  'uid': i[3], 'mail': i[2], 'uidNumber': str(uid), 'gidNumber': str(gid), \
 	  	  'homeDirectory': '/home/{}'.format(i[3]), 'loginShell': '/bin/bash', \
-	  	  'sshPublicKey': str(i[4])})
-
-		c.unbind()
+	  	  'sshPublicKey': str(i[4])})		
 
 		uid += 1
 		cont += 1
 except ldap3.core.exceptions.LDAPInvalidCredentialsResult:
 	print('No se pudo llevar a cabo la conexión: Credenciales incorrectas.')
+	sys.exit(1)
+
+c.unbind()
 
 if cont == 1:
 	print('Añadido 1 registro')
