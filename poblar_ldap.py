@@ -1,6 +1,7 @@
 import getpass, ldap3, base64, sys
 from ldap3 import Server, Connection, ALL
 
+# Tratamiento del fichero de configuración 
 with open('conf.csv', 'r') as conf:
     cfg = conf.readlines()
 
@@ -11,7 +12,6 @@ uid = cfg.split(':')[1]
 gid = cfg.split(':')[2]
 cont = 0
 
-# Hacerlo en un fichero aparte
 server = Server(cfg.split(':')[3])
 
 user = input('Usuario: ')
@@ -23,6 +23,7 @@ with open('usuarios.csv', 'r') as f:
 usuarios = []
 fichero.pop(0)
 
+# Tratamiento del fichero de usuarios
 for i in fichero:
     usuarios.append(i.strip('\n').split(':'))
 
