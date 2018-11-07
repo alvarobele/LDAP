@@ -1,7 +1,7 @@
 import getpass, ldap3, sys
 from ldap3 import Server, Connection, ALL
 
-# Tratamiento del fichero de configuración 
+# Tratamiento de los ficheros de configuración
 with open('conf.csv', 'r') as conf:
     cfg = conf.readlines()
 
@@ -32,7 +32,6 @@ try:
 except ldap3.core.exceptions.LDAPInvalidCredentialsResult:
 	print('No se pudo llevar a cabo la conexión: Credenciales incorrectas.')
 	sys.exit(1)
-
 
 # Tratamiento del fichero de usuarios
 usuarios = []
@@ -81,7 +80,6 @@ for i in equipos:
                          'cn': i[0],
                          'ipHostNumber': i[1],
                          'sshPublicKey': i[2]})
-
 
 c.unbind()
 
