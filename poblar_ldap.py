@@ -1,11 +1,20 @@
 import getpass, ldap3, sys
 from ldap3 import Server, Connection, ALL
 
-# Tratamiento del fichero de configuración 
-with open('../conf.csv', 'r') as conf:
+# Tratamiento del fich_us de configuración 
+with open('conf.csv', 'r') as conf:
     cfg = conf.readlines()
 
+with open('usuarios.csv', 'r') as f:
+    fich_us = f.readlines()
+
+with open('equipos.csv', 'r') as e:
+    fich = e.readlines()
+
+# Quitamos la primera línea de los ficheros
 cfg.pop(0)
+fich_us.pop(0)
+fich.pop(0)
 
 dom = cfg[0].strip('\n').split(':')[0]
 uid = int(cfg[0].strip('\n').split(':')[1])
@@ -17,20 +26,16 @@ server = Server(cfg[0].strip('\n').split(':')[3])
 user = input('Usuario: ')
 pwd = getpass.getpass('Contraseña: ')
 
-with open('../usuarios.csv', 'r') as f:
-    fichero = f.readlines()
-
-usuarios = []
-fichero.pop(0)
-
 try:
     c = Connection(server, 'cn={},{}'.format(user, dom), pwd, auto_bind = True, raise_exceptions = True)
 except ldap3.core.exceptions.LDAPInvalidCredentialsResult:
 	print('No se pudo llevar a cabo la conexión: Credenciales incorrectas.')
 	sys.exit(1)
 
+usuarios = []
+
 # Tratamiento del fichero de usuarios
-for i in fichero:
+for i in fich_us:
     usuarios.append(i.strip('\n').split(':'))
 
 for i in usuarios:
@@ -54,6 +59,8 @@ for i in usuarios:
 
     uid += 1
     cont += 1
+
+
 
 c.unbind()
 
