@@ -2,7 +2,7 @@ import getpass, ldap3, sys
 from ldap3 import Server, Connection, ALL
 
 # Tratamiento del fichero de configuración 
-with open('../conf.csv', 'r') as conf:
+with open('conf.csv', 'r') as conf:
     cfg = conf.readlines()
 
 cfg.pop(0)
@@ -17,7 +17,7 @@ server = Server(cfg[0].strip('\n').split(':')[3])
 user = input('Usuario: ')
 pwd = getpass.getpass('Contraseña: ')
 
-with open('../usuarios.csv', 'r') as f:
+with open('usuarios.csv', 'r') as f:
     fichero = f.readlines()
 
 usuarios = []
@@ -57,6 +57,6 @@ except ldap3.core.exceptions.LDAPInvalidCredentialsResult:
 c.unbind()
 
 if cont == 1:
-	print('Añadido 1 registro')
+    print('Añadido 1 registro')
 else:
     print('Añadidos {} registros'.format(cont))
