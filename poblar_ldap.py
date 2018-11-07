@@ -8,8 +8,8 @@ with open('conf.csv', 'r') as conf:
 cfg.pop(0)
 
 dom = cfg[0].strip('\n').split(':')[0]
-uid = cfg[0].strip('\n').split(':')[1]
-gid = cfg[0].strip('\n').split(':')[2]
+uid = int(cfg[0].strip('\n').split(':')[1])
+gid = int(cfg[0].strip('\n').split(':')[2])
 cont = 0
 
 server = Server(cfg[0].strip('\n').split(':')[3])
