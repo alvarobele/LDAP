@@ -2,22 +2,22 @@ import getpass, ldap3, sys
 from ldap3 import Server, Connection, ALL
 
 # Tratamiento del fichero de configuración 
-with open('conf.csv', 'r') as conf:
+with open('../conf.csv', 'r') as conf:
     cfg = conf.readlines()
 
 cfg.pop(0)
 
-dom = cfg.split(':')[0]
-uid = cfg.split(':')[1]
-gid = cfg.split(':')[2]
+dom = cfg[0].strip('\n').split(':')[0]
+uid = cfg[0].strip('\n').split(':')[1]
+gid = cfg[0].strip('\n').split(':')[2]
 cont = 0
 
-server = Server(cfg.split(':')[3])
+server = Server(cfg[0].strip('\n').split(':')[3])
 
 user = input('Usuario: ')
 pwd = getpass.getpass('Contraseña: ')
 
-with open('usuarios.csv', 'r') as f:
+with open('../usuarios.csv', 'r') as f:
     fichero = f.readlines()
 
 usuarios = []
