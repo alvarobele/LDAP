@@ -1,4 +1,4 @@
-import getpass, ldap3, base64, sys
+import getpass, ldap3, sys
 from ldap3 import Server, Connection, ALL
 
 # Tratamiento del fichero de configuración 
@@ -39,7 +39,7 @@ try:
                                             'ldapPublicKey'],
                             'givenName': i[0],
                             'sn': i[1],
-                            'cn': base64.b64encode(('{} {}'.format(i[0], i[1])).encode()),
+                            'cn': '{} {}'.format(i[0], i[1]),
                             'uid': i[3],
                             'mail': i[2],
                             'uidNumber': str(uid),
