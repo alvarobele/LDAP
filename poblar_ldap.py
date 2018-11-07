@@ -30,20 +30,6 @@ for i in fichero:
 try:
     c = Connection(server, 'cn={},{}'.format(user, dom), pwd, auto_bind = True, raise_exceptions = True)
     for i in usuarios:
-
-        nombre = i[0]
-        apellidos = i[1]
-
-        if all(ord(char) < 128 for char in nombre):
-            nombre = nombre
-        else:
-            nombre = str(base64.b64encode(nombre.encode())).lstrip("b'").rstrip("'")
-
-        if all(ord(char) < 128 for char in apellidos):
-            apellidos = apellidos
-        else:
-            apellidos = str(base64.b64encode(apellidos.encode())).lstrip("b'").rstrip("'")
-
         print('Añadiendo al usuario {}...'.format(i[3]))
 
         c.add('uid={},ou=People,dc=gonzalonazareno,dc=org'.format(i[3]),
@@ -51,8 +37,8 @@ try:
                                             'posixAccount',
                                             'inetOrgPerson',
                                             'ldapPublicKey'],
-                            'givenName': nombre,
-                            'sn': apellidos,
+                            'givenName': i[0],
+                            'sn': i[1],
                             'cn': base64.b64encode(('{} {}'.format(i[0], i[1])).encode()),
                             'uid': i[3],
                             'mail': i[2],
