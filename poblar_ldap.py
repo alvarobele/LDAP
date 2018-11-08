@@ -74,8 +74,8 @@ for i in equipos:
 
     c.add('uid={},ou=Equipos,{}'.format(i[1], dom),
            attributes = {'objectClass': ['top',
-                                        'device'
-                                        'ipHost'
+                                        'device',
+                                        'ipHost',
                                         'ldapPublicKey'],
                          'cn': i[0],
                          'ipHostNumber': i[1],
