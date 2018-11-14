@@ -79,7 +79,7 @@ for i in equipos:
                                         'ldapPublicKey'],
                          'cn': i[0],
                          'ipHostNumber': i[1],
-                         'sshPublicKey': i[2]})
+                         'sshPublicKey': str(i[2])})
 
 c.unbind()
 
